@@ -28,7 +28,7 @@ class App extends React.Component {
     this.setState({songs: updatedSongs})
   }
 
-  render(){
+  render(){ 
     return (
       <div className="App">
         <Form onSubmit={this.addNewSong}/>
