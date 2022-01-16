@@ -1,11 +1,25 @@
-import React from "react";
+import React, {useState} from "react";
 import Song from './Song';
 
-const useSortableData = (items, config = null) => {
-  const [sortConfig, setSortConfig] = React.useState(config);
-  
+const useSortableData = (allSongs, filterGenre, songRating) => {
+  const [sortConfig, setSortConfig] = React.useState(null);
+
+  const updatedByGenre = allSongs.filter(song => {
+    if(filterGenre) {
+      return song.genre === filterGenre
+    } else {
+      return { updatedByGenre: allSongs };
+    }});
+
+  const updatedSongs = updatedByGenre.filter(song => {
+    if(songRating) {
+      return song.rating === parseInt(songRating)
+    } else {
+      return { updatedSongs: allSongs };
+    }});
+
   const sortedItems = React.useMemo(() => {
-    let sortableItems = [...items];
+    let sortableItems = [...updatedSongs];
     if (sortConfig !== null) {
       sortableItems.sort((a, b) => {
         if (a[sortConfig.key] < b[sortConfig.key]) {
@@ -18,7 +32,7 @@ const useSortableData = (items, config = null) => {
       });
     }
     return sortableItems;
-  }, [items, sortConfig]);
+  }, [updatedSongs, sortConfig]);
 
   const requestSort = key => {
     let direction = 'ascending';
@@ -28,11 +42,13 @@ const useSortableData = (items, config = null) => {
     setSortConfig({ key, direction });
   }
 
-  return { items: sortedItems, requestSort };
+  return { allSongs: sortedItems, requestSort };
 }
 
 function List(props) {
-  const { items, requestSort, sortConfig } = useSortableData(props.allSongs);
+  const [ filterGenre, setFilterGenre] = useState(null)
+  const [ songRating, setSongRating ] = useState(null)
+  const { allSongs, requestSort, sortConfig } = useSortableData(props.songs, filterGenre, songRating);
   const getClassNamesFor = (name) => {
     if (!sortConfig) {
       return;
@@ -48,28 +64,42 @@ function List(props) {
                 <th 
                   className="song-row__item" 
                   onClick={() => requestSort('title')}
-                  className={getClassNamesFor('title')}>Title
+                  className={getClassNamesFor('title')}
+                  >Title
                 </th>
                 <th 
                   className="song-row__item" 
                   onClick={() => requestSort('artist')}
-                  className={getClassNamesFor('artist')}>Artist
+                  className={getClassNamesFor('artist')}
+                  >Artist
                 </th>
-                <th 
+                <select
                   className="song-row__item" 
-                  onClick={() => requestSort('genre')}
-                className={getClassNamesFor('genre')}>Genre
-                </th>
-                <th 
+                  onChange={event => setFilterGenre(event.target.value)}
+                >
+                  <option value="">All Genres</option>
+                  <option value="Jazz">Jazz</option>
+                  <option value="Classical">Classical</option>
+                  <option value="Pop">Pop</option>
+                  <option value="Folk">Folk</option>
+                  <option value="Lecture">Lecture</option>
+                </select>
+                <select 
                   className="song-row__item" 
-                  onClick={() => requestSort('rating')}
-                  className={getClassNamesFor('rating')}>Rating
-                </th>
+                  onChange={event => setSongRating(event.target.value)}
+                >
+                  <option value="">All Ratings</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select> 
               </tr>
             </thead>
             <tbody>
-            {items.map(song => 
-              <Song song={song} removeSong={props.removeSong}/>)}
+            {allSongs.map(song => 
+              <Song song={song} removeSong={props.removeSong} genre={filterGenre}/>)}
             </tbody>
           </table>
         </div>

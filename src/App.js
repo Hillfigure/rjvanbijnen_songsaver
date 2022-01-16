@@ -10,9 +10,13 @@ class App extends React.Component {
     this.state = 
     {
       songs: [
-        { title: "Test3", artist: "me3", genre: "Jazz", rating: 3 },
-        { title: "Test2", artist: "me2", genre: "Folk", rating: 2 },
-        { title: "Test1", artist: "me1", genre: "Lecture", rating: 1 }
+        { title: "Aria", artist: "J.S. Bach", genre: "Classical", rating: 3 },
+        { title: "Song for Song", artist: "Kenny Garrett", genre: "Jazz", rating: 5 },
+        { title: "The State", artist: "Plato", genre: "Lecture", rating: 4 },
+        { title: "Crash Dance", artist: "Celtic Bullies", genre: "Folk", rating: 2 },
+        { title: "Paris", artist: "Ben l'Oncle Soul", genre: "Jazz", rating: 4 },
+        { title: "Like a Virgin", artist: "Madonna", genre: "Pop", rating: 5 },
+        { title: "Mmm Mmm Mmm Mmm", artist: "Crash Test Dummies", genre: "Pop", rating: 1 }
       ]
     }
   }
@@ -32,7 +36,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <Form onSubmit={this.addNewSong}/>
-        <List allSongs={this.state.songs} removeSong={this.removeSong}/>
+        <List songs={this.state.songs} removeSong={this.removeSong}/>
       </div>
     )
   }

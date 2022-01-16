@@ -45,9 +45,10 @@ class Form extends React.Component {
             onChange={event => this.setState({ songGenre: event.target.value })}
             required
           >
-            <option value="" selected>please select</option>
+            <option value="">please select</option>
             <option value="Jazz">Jazz</option>
             <option value="Classical">Classical</option>
+            <option value="Pop">Pop</option>
             <option value="Folk">Folk</option>
             <option value="Lecture">Lecture</option>
           </select>
@@ -58,7 +59,7 @@ class Form extends React.Component {
             name="rating"
             onChange={event => this.setState({ songRating: event.target.value })}
           >
-            <option value="" selected>please select</option>
+            <option value="">please select</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
