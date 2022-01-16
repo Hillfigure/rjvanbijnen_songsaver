@@ -41,13 +41,12 @@ const useSortableData = (allSongs, filterGenre, songRating) => {
     }
     setSortConfig({ key, direction });
   }
-
   return { allSongs: sortedItems, requestSort };
 }
 
 function List(props) {
-  const [ filterGenre, setFilterGenre] = useState(null)
-  const [ songRating, setSongRating ] = useState(null)
+  const [ filterGenre, setFilterGenre] = useState('')
+  const [ songRating, setSongRating ] = useState('')
   const { allSongs, requestSort, sortConfig } = useSortableData(props.songs, filterGenre, songRating);
   const getClassNamesFor = (name) => {
     if (!sortConfig) {
@@ -73,7 +72,8 @@ function List(props) {
                   className={getClassNamesFor('artist')}
                   >Artist
                 </th>
-                <select
+                <th>
+                  <select
                   className="song-row__item" 
                   onChange={event => setFilterGenre(event.target.value)}
                 >
@@ -83,8 +83,10 @@ function List(props) {
                   <option value="Pop">Pop</option>
                   <option value="Folk">Folk</option>
                   <option value="Lecture">Lecture</option>
-                </select>
-                <select 
+                  </select>
+                </th>
+                <th>
+                  <select 
                   className="song-row__item" 
                   onChange={event => setSongRating(event.target.value)}
                 >
@@ -94,7 +96,8 @@ function List(props) {
                   <option value="3">3</option>
                   <option value="4">4</option>
                   <option value="5">5</option>
-                </select> 
+                  </select> 
+                  </th>
               </tr>
             </thead>
             <tbody>

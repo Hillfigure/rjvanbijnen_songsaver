@@ -57,7 +57,7 @@ class Form extends React.Component {
             required
             id="rating" 
             name="rating"
-            onChange={event => this.setState({ songRating: event.target.value })}
+            onChange={event => this.setState({ songRating: parseInt(event.target.value) })}
           >
             <option value="">please select</option>
             <option value="1">1</option>

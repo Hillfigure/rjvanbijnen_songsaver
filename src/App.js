@@ -1,5 +1,6 @@
 import React from 'react'
 import './App.css';
+import Header from './Components/Header';
 import List from './Components/List';
 import Form from './Components/Form';
 
@@ -11,7 +12,7 @@ class App extends React.Component {
     {
       songs: [
         { title: "Aria", artist: "J.S. Bach", genre: "Classical", rating: 3 },
-        { title: "Song for Song", artist: "Kenny Garrett", genre: "Jazz", rating: 5 },
+        { title: "Sing a Song of Song", artist: "Kenny Garrett", genre: "Jazz", rating: 5 },
         { title: "The State", artist: "Plato", genre: "Lecture", rating: 4 },
         { title: "Crash Dance", artist: "Celtic Bullies", genre: "Folk", rating: 2 },
         { title: "Paris", artist: "Ben l'Oncle Soul", genre: "Jazz", rating: 4 },
@@ -35,6 +36,7 @@ class App extends React.Component {
   render(){ 
     return (
       <div className="App">
+        <Header />
         <Form onSubmit={this.addNewSong}/>
         <List songs={this.state.songs} removeSong={this.removeSong}/>
       </div>

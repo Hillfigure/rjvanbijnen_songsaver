@@ -15,3 +15,56 @@ code {
 th {
   cursor: pointer;
 } 
+
+th:nth-child(1), th:nth-child(2) {
+  min-width: 200px;
+  max-width: 201px;
+}
+
+th:nth-child(3) {
+  min-width: 100px;
+  max-width: 101px;
+}
+
+th:nth-child(4) {
+  min-width: 80px;
+  max-width: 81px;
+}
+
+
+nav {
+  background-color: rgb(170, 214, 94);
+  height: 50px;
+  border-bottom: 2px solid olivedrab;
+}
+
+nav > a {
+  text-decoration: none;
+  color: white;
+  padding: 5px;
+  font-size: 1.4em;
+}
+
+form {
+  padding: 20px;
+}
+
+form > * {
+  margin-right: 10px;
+}
+
+main {
+  padding: 10px 80px;
+}
+
+.sort-default {
+
+}
+
+.sort-asc {
+
+}
+
+.sort-desc {
+  
+}
