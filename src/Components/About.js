@@ -6,7 +6,7 @@ const About = () => {
             <Header />
             <main> 
                 <h2><ul>
-                        <li>Sort Icon - Ternary || Css</li>
+                        <li>ID management</li>
                         <li>Styling</li>
                         <li>Redux?</li>
                         <li>Refactor</li>

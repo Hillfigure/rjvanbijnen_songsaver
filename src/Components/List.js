@@ -1,8 +1,12 @@
 import React, {useState} from "react";
 import Song from './Song';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSortUp, faSortDown } from '@fortawesome/free-solid-svg-icons';
 
-const useSortableData = (allSongs, filterGenre, songRating) => {
-  const [sortConfig, setSortConfig] = React.useState(null);
+// Custom Hook
+
+const useSortableList = (allSongs, filterGenre, songRating) => {
+  const [sortConfig, setSortConfig] = React.useState('');
 
   const updatedByGenre = allSongs.filter(song => {
     if(filterGenre) {
@@ -41,36 +45,37 @@ const useSortableData = (allSongs, filterGenre, songRating) => {
     }
     setSortConfig({ key, direction });
   }
-  return { allSongs: sortedItems, requestSort };
+  return { allSongs: sortedItems, requestSort, sortConfig };
 }
 
 function List(props) {
   const [ filterGenre, setFilterGenre] = useState('')
   const [ songRating, setSongRating ] = useState('')
-  const { allSongs, requestSort, sortConfig } = useSortableData(props.songs, filterGenre, songRating);
-  const getClassNamesFor = (name) => {
+  const { allSongs, requestSort, sortConfig } = useSortableList(props.songs, filterGenre, songRating);
+
+  const getIcon = (name) => {
     if (!sortConfig) {
       return;
     }
-    return sortConfig.key === name ? sortConfig.direction : undefined;
+    const arrow = (direc) => {
+      return direc === "ascending" ? <FontAwesomeIcon icon={faSortUp} /> : <FontAwesomeIcon icon={faSortDown} />
+    }
+    return sortConfig.key === name ? arrow(sortConfig.direction) : undefined;
   };
 
       return(
-        <div>
+        <main className={'main-content'}>
           <table style={{width: "100%"}}>
             <thead>
-              <tr className="song-header">  
+              <tr className="list-row">  
                 <th 
-                  className="song-row__item" 
                   onClick={() => requestSort('title')}
-                  className={getClassNamesFor('title')}
-                  >Title
+
+                  >Title {getIcon('title')}
                 </th>
                 <th 
-                  className="song-row__item" 
                   onClick={() => requestSort('artist')}
-                  className={getClassNamesFor('artist')}
-                  >Artist
+                  >Artist {getIcon('artist')}
                 </th>
                 <th>
                   <select
@@ -105,7 +110,7 @@ function List(props) {
               <Song song={song} removeSong={props.removeSong} genre={filterGenre}/>)}
             </tbody>
           </table>
-        </div>
+        </main>
       )
 
   }
